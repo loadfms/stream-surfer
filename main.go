@@ -33,7 +33,6 @@ type KinesisQueue struct {
 //
 //	*KinesisQueue: a pointer to the newly created KinesisQueue.
 //	error: an error, if any occurred during the creation.
-
 func New(streamName string) (*KinesisQueue, error) {
 	return NewWithOpts(streamName, 1024)
 }
