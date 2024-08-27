@@ -53,6 +53,11 @@ func main() {
 
 In the example above, we create a new `KinesisQueue` instance, enqueue data, and defer the execution of the `Flush` method to send the accumulated items to the Kinesis stream.
 
+
+### Note
+
+Make sure to use `defer` to execute the `Flush` method after enqueuing data to ensure that the accumulated items are sent to the Kinesis stream efficiently.
+
 ## Default Queue Size and Custom Queue Size
 
 The `streamsurfer` module provides a default queue size of 1024 kilobytes for batching messages to be sent to a Kinesis stream. This default size ensures that a reasonable amount of data can be accumulated before being flushed to the stream.
@@ -73,6 +78,3 @@ queue, err := streamsurfer.NewWithOpts("your-stream-name", 2048)
 
 In the example above, a `KinesisQueue` is created with a custom queue size of 2048 KB. Adjusting the queue size allows you to control how much data can be accumulated before triggering the flushing process to send the messages to the Kinesis stream.
 
-## Note
-
-Make sure to use `defer` to execute the `Flush` method after enqueuing data to ensure that the accumulated items are sent to the Kinesis stream efficiently.
