@@ -28,13 +28,28 @@ type KinesisQueue struct {
 // Parameters:
 //
 //	streamName: the name of the Kinesis stream to send messages to.
+//
+// Returns:
+//
+//	*KinesisQueue: a pointer to the newly created KinesisQueue.
+//	error: an error, if any occurred during the creation.
+
+func New(streamName string) (*KinesisQueue, error) {
+	return NewWithOpts(streamName, 1024)
+}
+
+// NewWithOpts creates a new KinesisQueue for sending messages  in a batch to a Kinesis stream.
+//
+// Parameters:
+//
+//	streamName: the name of the Kinesis stream to send messages to.
 //	maxSizeKB: the maximum size in kilobytes for the batch.
 //
 // Returns:
 //
 //	*KinesisQueue: a pointer to the newly created KinesisQueue.
 //	error: an error, if any occurred during the creation.
-func New(streamName string, maxSizeKB int) (*KinesisQueue, error) {
+func NewWithOpts(streamName string, maxSizeKB int) (*KinesisQueue, error) {
 	if streamName == "" {
 		return &KinesisQueue{}, fmt.Errorf("streamName must be provided")
 	}
