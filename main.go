@@ -82,6 +82,15 @@ func connectToKinesis() (*kinesis.Client, error) {
 	return kinesis.NewFromConfig(cfg), nil
 }
 
+// Enqueue adds a new data item to the KinesisQueue for batch processing.
+//
+// Parameters:
+//
+//	data: a map containing the data to be enqueued. It must include an "event" field as a string.
+//
+// Returns:
+//
+//	error: an error, if any occurred during the enqueue process.
 func (q *KinesisQueue) Enqueue(data map[string]interface{}) error {
 	if _, ok := data["event"].(string); !ok {
 		return fmt.Errorf("event field is required")
